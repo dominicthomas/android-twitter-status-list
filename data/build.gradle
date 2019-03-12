@@ -22,6 +22,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
 
     testImplementation "junit:junit:$versions.junit"
-    androidTestImplementation "androidx.test:runner:$versions.test_runner"
+    androidTestImplementation "androidx.test.ext:junit:$versions.test_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
 }

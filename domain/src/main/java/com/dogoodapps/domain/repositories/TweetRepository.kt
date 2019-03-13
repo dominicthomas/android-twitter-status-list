@@ -4,5 +4,5 @@ import com.dogoodapps.domain.entities.Tweet
 import io.reactivex.Single
 
 interface TweetRepository {
-    fun getTweets(): Single<List<Tweet>>
+    fun getStatusList(): Single<List<Tweet>>
 }

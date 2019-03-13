@@ -1,6 +1,7 @@
 package com.dogoodapps.chirp.di
 
 import com.dogoodapps.chirp.ChirpApplication
+import com.dogoodapps.chirp.ui.di.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -12,8 +13,11 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         ActivityBuilder::class,
+        FragmentBuilder::class,
+        ViewModelModule::class,
         AndroidInjectionModule::class,
-        AndroidSupportInjectionModule::class]
+        AndroidSupportInjectionModule::class
+    ]
 )
 interface AppComponent {
 

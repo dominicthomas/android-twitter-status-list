@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        applicationId config.application_id
+        versionCode config.version_code
+        versionName config.version_name
+        testInstrumentationRunner config.test_runner
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.core:core-ktx:$versions.core_ktx"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+    implementation "androidx.core:core-ktx:$versions.ktx"
+    implementation "androidx.fragment:fragment-ktx:$versions.fragment_ktx"
+
+    // TODO: Move to versions
+    implementation "io.reactivex.rxjava2:rxjava:2.2.7"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
+
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    implementation "com.google.dagger:dagger-android:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+
+    testImplementation "junit:junit:$versions.junit"
+    androidTestImplementation "androidx.test.ext:junit:$versions.test_ext"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+}

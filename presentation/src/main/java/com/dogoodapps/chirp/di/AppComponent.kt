@@ -2,6 +2,7 @@ package com.dogoodapps.chirp.di
 
 import com.dogoodapps.chirp.ChirpApplication
 import com.dogoodapps.chirp.ui.di.ViewModelModule
+import com.dogoodapps.data.di.DataComponent
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -28,6 +29,8 @@ interface AppComponent {
 
         fun build(): AppComponent
     }
+
+    fun dataComponent(): DataComponent
 
     fun inject(app: ChirpApplication)
 }

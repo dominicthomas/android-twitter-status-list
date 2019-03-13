@@ -22,9 +22,9 @@ class ChirpFragment : Fragment() {
         }
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var statusViewModel: StatusViewModel
+//    @Inject
+//    lateinit var viewModelFactory: ViewModelProvider.Factory
+//    private lateinit var statusViewModel: StatusViewModel
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -37,6 +37,6 @@ class ChirpFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        statusViewModel = ViewModelProviders.of(this, viewModelFactory).get(StatusViewModel::class.java)
+        //statusViewModel = ViewModelProviders.of(this, viewModelFactory).get(StatusViewModel::class.java)
     }
 }

@@ -2,9 +2,8 @@ package com.dogoodapps.data.di
 
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+
 @Component(
     modules = [
         NetworkingModule::class,
@@ -13,6 +12,7 @@ import javax.inject.Singleton
     ]
 )
 interface DataComponent {
+
     @Component.Builder
     interface Builder {
         @BindsInstance

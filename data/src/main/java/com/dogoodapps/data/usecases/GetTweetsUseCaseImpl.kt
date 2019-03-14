@@ -1,5 +1,6 @@
 package com.dogoodapps.data.usecases
 
+import com.dogoodapps.data.networking.requests.TweetRequest
 import com.dogoodapps.domain.auth.AuthService
 import com.dogoodapps.domain.entities.Tweet
 import com.dogoodapps.domain.repositories.TweetRepository
@@ -12,16 +13,11 @@ open class GetTweetsUseCaseImpl @Inject constructor(
     private val authService: AuthService
 ) : GetTweetsUseCase {
 
-    override fun getTweets(listId: String): Single<List<Tweet>> {
+    override fun getTweets(params: Map<String, String>): Single<List<Tweet>> {
+        return tweetRepository.getTweets(authService.getToken(), params)
+    }
 
-        // This are dummy params for the sake of the demo.. would be built dynamically in a real app
-        val queryParams = hashMapOf(
-            "list_id" to listId,
-            "tweet_mode" to "extended",
-            "include_entities" to 1.toString(),
-            "count" to 10.toString()
-        )
-
-        return tweetRepository.getStatusList(authService.getToken(), queryParams)
+    override fun buildRequest(listId: String): Map<String, String> {
+        return TweetRequest(listId, "extended", "1", "10").buildParams()
     }
 }

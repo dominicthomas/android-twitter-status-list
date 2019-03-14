@@ -13,7 +13,11 @@ class TweetRepositoryImpl @Inject constructor(
     private val tweetService: TweetService
 ) : TweetRepository {
 
-    override fun getStatusList(token: String?, params: Map<String, String>): Single<List<Tweet>> {
+    /**
+     * Currently this repository just connects us to the api service but this repo could store data in memory or a
+     * data store and return existing data if required (offline) or carry out a new request for fresh data.
+     */
+    override fun getTweets(token: String?, params: Map<String, String>): Single<List<Tweet>> {
         return tweetService.getStatusList(token, params)
     }
 }

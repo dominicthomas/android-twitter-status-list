@@ -17,6 +17,10 @@ class AuthServiceImpl @Inject constructor() : AuthService {
         return !accessToken.isNullOrEmpty()
     }
 
+    override fun setToken(token: String?) {
+        accessToken = token
+    }
+
     override fun getToken(): String? {
         return accessToken
     }

@@ -2,10 +2,7 @@ package com.dogoodapps.chirp.presentation.di
 
 import com.dogoodapps.chirp.presentation.ChirpApplication
 import com.dogoodapps.chirp.presentation.ui.di.ViewModelModule
-import com.dogoodapps.data.di.AuthModule
-import com.dogoodapps.data.di.NetworkingModule
-import com.dogoodapps.data.di.RepositoryModule
-import com.dogoodapps.data.di.UseCaseModule
+import com.dogoodapps.data.di.*
 
 import dagger.BindsInstance
 import dagger.Component
@@ -26,10 +23,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
 
         // Data
-        NetworkingModule::class,
-        RepositoryModule::class,
-        UseCaseModule::class,
-        AuthModule::class
+        DataModule::class
     ]
 )
 interface AppComponent {

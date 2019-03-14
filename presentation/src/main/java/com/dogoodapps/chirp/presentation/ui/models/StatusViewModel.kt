@@ -30,7 +30,7 @@ class StatusViewModel @Inject constructor(private val getTweetsUseCase: GetTweet
     private fun loadStatusList(listId: String) {
         statusListLiveData.value = Resource.loading(emptyList())
         compositeDisposable.add(
-            getTweetsUseCase.getTweets(listId)
+            getTweetsUseCase.getTweets(getTweetsUseCase.buildRequest(listId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onStatusListReceived, this::onError)

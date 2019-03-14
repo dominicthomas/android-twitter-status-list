@@ -1,13 +1,9 @@
 package com.dogoodapps.chirp.presentation.di
 
 import com.dogoodapps.chirp.presentation.ChirpApplication
-import com.dogoodapps.chirp.presentation.ui.di.ViewModelModule
-import com.dogoodapps.data.di.*
-
+import com.dogoodapps.data.di.DataModule
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
@@ -16,11 +12,6 @@ import javax.inject.Singleton
 
         // Presentation
         AppModule::class,
-        ActivityBuilder::class,
-        FragmentBuilder::class,
-        ViewModelModule::class,
-        AndroidInjectionModule::class,
-        AndroidSupportInjectionModule::class,
 
         // Data
         DataModule::class

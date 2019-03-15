@@ -4,8 +4,7 @@ apply plugin: 'kotlin'
 dependencies {
     //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    implementation "io.reactivex.rxjava2:rxjava:2.2.7"
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    api "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
 }
 
 sourceCompatibility = "7"

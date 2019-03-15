@@ -33,6 +33,9 @@ versions.dagger = "2.20"
 // Retrofit
 versions.retrofit = "2.5.0"
 
+// OkHttp
+versions.okhttp_logging = "3.10.0"
+
 // RxJava
 versions.rxjava2 = "2.2.7"
 versions.rx_android = "2.1.1"

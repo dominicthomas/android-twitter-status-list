@@ -18,5 +18,5 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(TweetListViewModel::class)
-    internal abstract fun statusListViewModel(viewModel: TweetListViewModel): ViewModel
+    internal abstract fun tweetListViewModel(viewModel: TweetListViewModel): ViewModel
 }

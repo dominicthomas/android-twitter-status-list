@@ -2,6 +2,7 @@ package com.dogoodapps.chirp.presentation.di
 
 import android.content.Context
 import com.dogoodapps.chirp.presentation.ChirpApplication
+import com.dogoodapps.chirp.presentation.ui.di.FragmentBuilder
 import com.dogoodapps.chirp.presentation.ui.di.ViewModelModule
 import dagger.Module
 import dagger.Provides

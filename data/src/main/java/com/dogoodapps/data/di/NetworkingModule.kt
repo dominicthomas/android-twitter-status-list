@@ -1,7 +1,7 @@
 package com.dogoodapps.data.di
 
 import com.dogoodapps.data.BuildConfig
-import com.dogoodapps.data.networking.TweetService
+import com.dogoodapps.data.networking.TwitterService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -38,6 +38,6 @@ class NetworkingModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): TweetService =
-        retrofit.create(TweetService::class.java)
+    fun provideApiService(retrofit: Retrofit): TwitterService =
+        retrofit.create(TwitterService::class.java)
 }

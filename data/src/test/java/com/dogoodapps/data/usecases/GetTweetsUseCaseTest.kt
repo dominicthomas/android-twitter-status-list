@@ -2,10 +2,9 @@ package com.dogoodapps.data.usecases
 
 import com.dogoodapps.data.networking.requests.TweetRequest
 import com.dogoodapps.domain.auth.AuthService
-import com.dogoodapps.domain.entities.Tweet
+import com.dogoodapps.domain.entities.Status
 import com.dogoodapps.domain.repositories.TweetRepository
 import io.reactivex.Single
-
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -24,7 +23,7 @@ class GetTweetsUseCaseTest {
     private val fakeAuthToken = "AUTH_TOKEN"
 
     @Mock
-    private lateinit var mockTweet: Tweet
+    private lateinit var mockStatus: Status
 
     @Mock
     private lateinit var mockTweetRepository: TweetRepository
@@ -36,8 +35,8 @@ class GetTweetsUseCaseTest {
 
     @Before
     fun setup() {
-        `when`(mockTweetRepository.getTweets(fakeAuthToken, tweetRequest.buildParams()))
-            .thenReturn(Single.just(listOf(mockTweet)))
+        `when`(mockTweetRepository.getStatusList(fakeAuthToken, tweetRequest.buildParams()))
+            .thenReturn(Single.just(listOf(mockStatus)))
         `when`(mockAuthService.getToken()).thenReturn(fakeAuthToken)
     }
 
@@ -45,8 +44,8 @@ class GetTweetsUseCaseTest {
     fun getTweets_withRequestParams_callsGetTweetsOnRepository() {
         val getTweetsUseCase = GetTweetsUseCaseImpl(mockTweetRepository, mockAuthService)
         val tweetParams = tweetRequest.buildParams()
-        val tweets = getTweetsUseCase.getTweets(tweetParams)
-        verify(mockTweetRepository).getTweets(fakeAuthToken, tweetParams)
+        val tweets = getTweetsUseCase.getStatusList(tweetParams)
+        verify(mockTweetRepository).getStatusList(fakeAuthToken, tweetParams)
         assertNotNull(tweets)
     }
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dogoodapps.chirp.presentation.ui.framework.ViewModelFactory
 import com.dogoodapps.chirp.presentation.ui.framework.ViewModelKey
-import com.dogoodapps.chirp.presentation.ui.models.StatusViewModel
+import com.dogoodapps.chirp.presentation.ui.models.TweetListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -17,6 +17,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(StatusViewModel::class)
-    internal abstract fun statusListViewModel(viewModel: StatusViewModel): ViewModel
+    @ViewModelKey(TweetListViewModel::class)
+    internal abstract fun statusListViewModel(viewModel: TweetListViewModel): ViewModel
 }

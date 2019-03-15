@@ -12,19 +12,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dogoodapps.chirp.R
-import com.dogoodapps.chirp.presentation.ui.adapters.StatusListAdapter
-import com.dogoodapps.chirp.presentation.ui.models.TweetListViewModel
-import com.dogoodapps.domain.framework.Status
+import com.dogoodapps.chirp.presentation.ui.main.adapters.TweetListAdapter
+import com.dogoodapps.chirp.presentation.ui.main.models.TweetListViewModel
+import com.dogoodapps.domain.framework.ResourceStatus
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_chip.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
 
-class ChirpFragment : Fragment() {
+class TweetListFragment : Fragment() {
 
     companion object {
-        fun newInstance(): ChirpFragment {
-            return ChirpFragment()
+        fun newInstance(): TweetListFragment {
+            return TweetListFragment()
         }
     }
 
@@ -33,17 +33,7 @@ class ChirpFragment : Fragment() {
 
     private lateinit var tweetListViewModel: TweetListViewModel
 
-    private lateinit var adapter: StatusListAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        adapter = StatusListAdapter {
-            Toast.makeText(context, it.id.toString(), Toast.LENGTH_SHORT).show()
-        }
-        tweetListRecyclerView.layoutManager = LinearLayoutManager(context)
-        tweetListRecyclerView.adapter = adapter
-    }
+    private lateinit var tweetAdapter: TweetListAdapter
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -51,20 +41,34 @@ class ChirpFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_chip, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tweetAdapter = TweetListAdapter {
+            Toast.makeText(context, it.id.toString(), Toast.LENGTH_SHORT).show()
+        }
+        tweetListRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = tweetAdapter
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         tweetListViewModel = ViewModelProviders.of(this, viewModelFactory).get(TweetListViewModel::class.java)
         tweetListViewModel.getStatusList().observe(this, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    adapter.setItems(it.data ?: emptyList())
+            when (it.resourceStatus) {
+                ResourceStatus.SUCCESS -> {
+                    tweetAdapter.setItems(it.data ?: emptyList())
+                    tweetAdapter.notifyDataSetChanged()
                 }
-                Status.ERROR -> {
-                }/*statusResponseCount.text = it.message*/
-                Status.LOADING -> {
+                ResourceStatus.ERROR -> {
+                    // TODO: Handle error
+                }
+                ResourceStatus.LOADING -> {
+                    // TODO: Handle loading
                 }
             }
         })

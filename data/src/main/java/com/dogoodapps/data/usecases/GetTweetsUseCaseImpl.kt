@@ -2,7 +2,7 @@ package com.dogoodapps.data.usecases
 
 import com.dogoodapps.data.networking.requests.TweetRequest
 import com.dogoodapps.domain.auth.AuthService
-import com.dogoodapps.domain.entities.Status
+import com.dogoodapps.domain.entities.Tweet
 import com.dogoodapps.domain.repositories.TweetRepository
 import com.dogoodapps.domain.usecases.GetTweetsUseCase
 import io.reactivex.Single
@@ -13,7 +13,7 @@ open class GetTweetsUseCaseImpl @Inject constructor(
     private val authService: AuthService
 ) : GetTweetsUseCase {
 
-    override fun getStatusList(params: Map<String, String>): Single<List<Status>> {
+    override fun getStatusList(params: Map<String, String>): Single<List<Tweet>> {
         return tweetRepository.getStatusList(authService.getToken(), params)
     }
 

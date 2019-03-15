@@ -2,7 +2,7 @@ package com.dogoodapps.data.repositories
 
 import com.dogoodapps.data.networking.TwitterService
 import com.dogoodapps.data.networking.requests.TweetRequest
-import com.dogoodapps.domain.entities.Status
+import com.dogoodapps.domain.entities.Tweet
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -18,7 +18,7 @@ class TweetRepositoryTest {
     private val fakeAuthToken = "AUTH_TOKEN"
 
     @Mock
-    private lateinit var mockStatus: Status
+    private lateinit var mockTweet: Tweet
 
     @Mock
     private lateinit var mockTwitterService: TwitterService
@@ -28,7 +28,7 @@ class TweetRepositoryTest {
     @Before
     fun setup() {
         Mockito.`when`(mockTwitterService.getStatusList(fakeAuthToken, tweetRequest.buildParams()))
-            .thenReturn(Single.just(listOf(mockStatus)))
+            .thenReturn(Single.just(listOf(mockTweet)))
     }
 
     @Test

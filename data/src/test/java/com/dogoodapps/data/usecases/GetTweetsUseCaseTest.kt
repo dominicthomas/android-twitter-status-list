@@ -2,7 +2,7 @@ package com.dogoodapps.data.usecases
 
 import com.dogoodapps.data.networking.requests.TweetRequest
 import com.dogoodapps.domain.auth.AuthService
-import com.dogoodapps.domain.entities.Status
+import com.dogoodapps.domain.entities.Tweet
 import com.dogoodapps.domain.repositories.TweetRepository
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
@@ -23,7 +23,7 @@ class GetTweetsUseCaseTest {
     private val fakeAuthToken = "AUTH_TOKEN"
 
     @Mock
-    private lateinit var mockStatus: Status
+    private lateinit var mockTweet: Tweet
 
     @Mock
     private lateinit var mockTweetRepository: TweetRepository
@@ -36,7 +36,7 @@ class GetTweetsUseCaseTest {
     @Before
     fun setup() {
         `when`(mockTweetRepository.getStatusList(fakeAuthToken, tweetRequest.buildParams()))
-            .thenReturn(Single.just(listOf(mockStatus)))
+            .thenReturn(Single.just(listOf(mockTweet)))
         `when`(mockAuthService.getToken()).thenReturn(fakeAuthToken)
     }
 

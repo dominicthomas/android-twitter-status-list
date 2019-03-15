@@ -1,6 +1,6 @@
 package com.dogoodapps.chirp.presentation.di
 
-import com.dogoodapps.chirp.presentation.ui.main.ChirpFragment
+import com.dogoodapps.chirp.presentation.ui.main.TweetListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -9,5 +9,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
-    internal abstract fun contributeChirpFragment(): ChirpFragment
+    internal abstract fun contributeChirpFragment(): TweetListFragment
 }

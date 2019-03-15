@@ -8,7 +8,7 @@ import com.dogoodapps.chirp.R
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class ChirpActivity : AppCompatActivity() {
+class TweetListActivity : AppCompatActivity() {
 
     @Inject
     lateinit var app: Context
@@ -18,7 +18,7 @@ class ChirpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chirp)
         supportFragmentManager.commit(allowStateLoss = true) {
-            replace(R.id.container, ChirpFragment.newInstance())
+            replace(R.id.container, TweetListFragment.newInstance())
         }
     }
 }

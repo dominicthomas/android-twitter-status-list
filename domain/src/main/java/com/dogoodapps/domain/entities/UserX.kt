@@ -14,7 +14,7 @@ data class UserX(
     val friends_count: Int,
     val geo_enabled: Boolean,
     val has_extended_profile: Boolean,
-    val id: Int,
+    val id: Long,
     val id_str: String,
     val is_translation_enabled: Boolean,
     val is_translator: Boolean,

@@ -1,6 +1,6 @@
 package com.dogoodapps.domain.entities
 
-data class Status(
+data class Tweet(
     val contributors: Any,
     val coordinates: Any,
     val created_at: String,

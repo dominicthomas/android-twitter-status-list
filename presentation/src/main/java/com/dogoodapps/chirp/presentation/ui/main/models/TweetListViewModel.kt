@@ -1,9 +1,9 @@
-package com.dogoodapps.chirp.presentation.ui.models
+package com.dogoodapps.chirp.presentation.ui.main.models
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dogoodapps.domain.entities.Status
+import com.dogoodapps.domain.entities.Tweet
 import com.dogoodapps.domain.framework.Resource
 import com.dogoodapps.domain.usecases.GetTweetsUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,19 +15,19 @@ class TweetListViewModel @Inject constructor(private val getTweetsUseCase: GetTw
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val statusData = MutableLiveData<Resource<List<Status>>>()
+    private val tweetData = MutableLiveData<Resource<List<Tweet>>>()
 
     init {
-        statusData.value = Resource.success(emptyList())
+        tweetData.value = Resource.success(emptyList())
     }
 
-    fun getStatusList(): MutableLiveData<Resource<List<Status>>> {
-        return statusData
+    fun getStatusList(): MutableLiveData<Resource<List<Tweet>>> {
+        return tweetData
     }
 
     @SuppressLint("CheckResult")
     fun loadStatusList(listId: String) {
-        statusData.value = Resource.loading(emptyList())
+        tweetData.value = Resource.loading(emptyList())
         compositeDisposable.add(
             getTweetsUseCase.getStatusList(getTweetsUseCase.buildRequest(listId))
                 .subscribeOn(Schedulers.io())
@@ -36,12 +36,12 @@ class TweetListViewModel @Inject constructor(private val getTweetsUseCase: GetTw
         )
     }
 
-    private fun onStatusListReceived(statusList: List<Status>) {
-        statusData.value = Resource.success(statusList)
+    private fun onStatusListReceived(tweetList: List<Tweet>) {
+        tweetData.value = Resource.success(tweetList)
     }
 
     private fun onError(error: Throwable) {
-        statusData.value = Resource.error(error.localizedMessage, emptyList())
+        tweetData.value = Resource.error(error.localizedMessage, emptyList())
     }
 
     override fun onCleared() {

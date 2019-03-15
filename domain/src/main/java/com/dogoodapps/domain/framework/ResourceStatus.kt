@@ -1,5 +1,5 @@
 package com.dogoodapps.domain.framework
 
-enum class Status {
+enum class ResourceStatus {
     SUCCESS, ERROR, LOADING
 }

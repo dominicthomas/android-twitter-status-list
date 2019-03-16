@@ -4,15 +4,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun String.twitterFriendlyDate(): String? {
-    val dateFormat = SimpleDateFormat(
+    val apiDateFormat = SimpleDateFormat(
         "EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH
     )
-    dateFormat.isLenient = false
-    val created = dateFormat.parse(this)
+    apiDateFormat.isLenient = false
+    val createdAt = apiDateFormat.parse(this)
 
-    val anotherDateFormat = SimpleDateFormat(
+    val simpleDateFormat = SimpleDateFormat(
         "MMM dd yyyy HH:mm", Locale.ENGLISH
     )
 
-    return anotherDateFormat.format(created)
+    return simpleDateFormat.format(createdAt)
 }

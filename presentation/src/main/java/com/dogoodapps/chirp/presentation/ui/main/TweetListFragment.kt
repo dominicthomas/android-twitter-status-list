@@ -12,11 +12,13 @@ import com.dogoodapps.chirp.R
 import com.dogoodapps.chirp.presentation.ui.framework.BaseInjectingFragment
 import com.dogoodapps.chirp.presentation.ui.main.adapters.TweetListAdapter
 import com.dogoodapps.chirp.presentation.ui.main.models.TweetListViewModel
+import com.dogoodapps.data.model.TweetDataModel
+import com.dogoodapps.domain.framework.Resource
 import com.dogoodapps.domain.framework.ResourceStatus
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
-class TweetListFragment : BaseInjectingFragment() {
+class TweetListFragment : BaseInjectingFragment<MainActivity>() {
 
     companion object {
         fun newInstance(): TweetListFragment {
@@ -41,25 +43,27 @@ class TweetListFragment : BaseInjectingFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = tweetAdapter
         }
+        tweetListViewModel = ViewModelProviders.of(this, viewModelFactory).get(TweetListViewModel::class.java)
+        tweetListViewModel.getStatusList().observe(this, StatusObserver())
+        tweetListViewModel.loadStatusList(getString(R.string.dummy_list_id))
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        tweetListViewModel = ViewModelProviders.of(this, viewModelFactory).get(TweetListViewModel::class.java)
-        tweetListViewModel.getStatusList().observe(this, Observer {
-            when (it.resourceStatus) {
+    private inner class StatusObserver : Observer<Resource<List<TweetDataModel>>> {
+        override fun onChanged(resouce: Resource<List<TweetDataModel>>?) {
+            when (resouce?.resourceStatus) {
                 ResourceStatus.SUCCESS -> {
-                    tweetAdapter.setItems(it.data ?: emptyList())
+                    getInjectingActivity().showLoading(false)
+                    tweetAdapter.setItems(resouce.data ?: emptyList())
                     tweetAdapter.notifyDataSetChanged()
                 }
                 ResourceStatus.ERROR -> {
-                    // TODO: Handle error
+                    getInjectingActivity().showLoading(false)
+                    Toast.makeText(context, resouce.message, Toast.LENGTH_SHORT).show()
                 }
                 ResourceStatus.LOADING -> {
-                    // TODO: Handle loading
+                    getInjectingActivity().showLoading(true)
                 }
             }
-        })
-        tweetListViewModel.loadStatusList(getString(R.string.dummy_list_id))
+        }
     }
 }

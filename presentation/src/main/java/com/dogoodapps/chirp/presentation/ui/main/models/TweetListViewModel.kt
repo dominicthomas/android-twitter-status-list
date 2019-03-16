@@ -3,6 +3,8 @@ package com.dogoodapps.chirp.presentation.ui.main.models
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dogoodapps.data.model.TweetDataModel
+import com.dogoodapps.data.model.TweetMapper
 import com.dogoodapps.domain.framework.Resource
 import com.dogoodapps.domain.usecases.GetTweetsUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,17 +12,20 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class TweetListViewModel @Inject constructor(private val getTweetsUseCase: GetTweetsUseCase) : ViewModel() {
+class TweetListViewModel @Inject constructor(
+    private val getTweetsUseCase: GetTweetsUseCase,
+    private val tweetMapper: TweetMapper
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val tweetData = MutableLiveData<Resource<List<TweetViewModel>>>()
+    private val tweetData = MutableLiveData<Resource<List<TweetDataModel>>>()
 
     init {
         tweetData.value = Resource.success(emptyList())
     }
 
-    fun getStatusList(): MutableLiveData<Resource<List<TweetViewModel>>> {
+    fun getStatusList(): MutableLiveData<Resource<List<TweetDataModel>>> {
         return tweetData
     }
 
@@ -31,12 +36,13 @@ class TweetListViewModel @Inject constructor(private val getTweetsUseCase: GetTw
             getTweetsUseCase.getStatusList(getTweetsUseCase.buildRequest(listId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { item -> item.map { it.toTweetViewModel() } }
+                // Ideally the mapping would happen in the use case not the viewmodel
+                .map { item -> item.map { tweetMapper.convert(it) } }
                 .subscribe(this::onStatusListReceived, this::onError)
         )
     }
 
-    private fun onStatusListReceived(tweetList: List<TweetViewModel>) {
+    private fun onStatusListReceived(tweetList: List<TweetDataModel>) {
         tweetData.value = Resource.success(tweetList)
     }
 

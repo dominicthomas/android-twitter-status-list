@@ -13,7 +13,7 @@
             android:theme="@style/AppTheme"
             android:name=".presentation.ChirpApplication"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation.ui.main.TweetListActivity">
+        <activity android:name=".presentation.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

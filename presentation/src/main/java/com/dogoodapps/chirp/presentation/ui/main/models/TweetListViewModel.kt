@@ -3,7 +3,6 @@ package com.dogoodapps.chirp.presentation.ui.main.models
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dogoodapps.domain.entities.Tweet
 import com.dogoodapps.domain.framework.Resource
 import com.dogoodapps.domain.usecases.GetTweetsUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,13 +14,13 @@ class TweetListViewModel @Inject constructor(private val getTweetsUseCase: GetTw
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val tweetData = MutableLiveData<Resource<List<Tweet>>>()
+    private val tweetData = MutableLiveData<Resource<List<TweetViewModel>>>()
 
     init {
         tweetData.value = Resource.success(emptyList())
     }
 
-    fun getStatusList(): MutableLiveData<Resource<List<Tweet>>> {
+    fun getStatusList(): MutableLiveData<Resource<List<TweetViewModel>>> {
         return tweetData
     }
 
@@ -32,11 +31,12 @@ class TweetListViewModel @Inject constructor(private val getTweetsUseCase: GetTw
             getTweetsUseCase.getStatusList(getTweetsUseCase.buildRequest(listId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .map { item -> item.map { it.toTweetViewModel() } }
                 .subscribe(this::onStatusListReceived, this::onError)
         )
     }
 
-    private fun onStatusListReceived(tweetList: List<Tweet>) {
+    private fun onStatusListReceived(tweetList: List<TweetViewModel>) {
         tweetData.value = Resource.success(tweetList)
     }
 

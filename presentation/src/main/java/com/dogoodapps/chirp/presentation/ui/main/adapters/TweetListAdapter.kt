@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dogoodapps.chirp.R
-import com.dogoodapps.domain.entities.Tweet
+import com.dogoodapps.chirp.presentation.ui.main.models.TweetViewModel
 
-class TweetListAdapter(val onClick: (Tweet) -> Unit) : RecyclerView.Adapter<TweetItemViewHolder>() {
+class TweetListAdapter(val onClick: (TweetViewModel) -> Unit) : RecyclerView.Adapter<TweetItemViewHolder>() {
 
-    private var items: List<Tweet> = emptyList()
+    private var items: List<TweetViewModel> = emptyList()
 
-    fun setItems(newItems: List<Tweet>) {
+    fun setItems(newItems: List<TweetViewModel>) {
         items = newItems
     }
 

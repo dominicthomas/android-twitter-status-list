@@ -32,6 +32,8 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"
                 android:textSize="22sp"
+                android:autoLink="web"
+                android:textColorLink="#4F91BF"
                 android:layout_height="wrap_content"
                 tools:text="Lorem ipsum "/>
 

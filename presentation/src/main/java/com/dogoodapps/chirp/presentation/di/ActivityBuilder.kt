@@ -1,7 +1,7 @@
 package com.dogoodapps.chirp.presentation.di
 
 import com.dogoodapps.chirp.presentation.ui.di.ActivityScope
-import com.dogoodapps.chirp.presentation.ui.di.FragmentBuilder
+import com.dogoodapps.chirp.presentation.ui.main.di.FragmentBuilder
 import com.dogoodapps.chirp.presentation.ui.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

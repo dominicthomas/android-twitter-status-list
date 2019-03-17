@@ -21,7 +21,7 @@ class TweetMapperUtilsTest {
 
     private val fakeCreatedAt = "Sat Mar 16 14:08:01 +0000 2019"
 
-    private val createAtResult = "16 Mar 2019 - 14:08"
+    private val createAtResult = "16 Mar 2019 @ 14:08"
 
     private lateinit var tweetMapperUtils: TweetMapperUtils
 

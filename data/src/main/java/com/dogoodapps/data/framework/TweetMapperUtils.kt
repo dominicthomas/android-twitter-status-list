@@ -8,7 +8,7 @@ class TweetMapperUtils @Inject constructor(private val htmlParser: HtmlParser) {
 
     private val twitterDatePattern = "EEE MMM dd HH:mm:ss ZZZZZ yyyy"
 
-    private val applicationDatePattern = "dd MMM yyyy - HH:mm"
+    private val applicationDatePattern = "dd MMM yyyy @ HH:mm"
 
     fun parseDate(dateString: String): Date {
         val apiDateFormat = SimpleDateFormat(twitterDatePattern, Locale.ENGLISH)

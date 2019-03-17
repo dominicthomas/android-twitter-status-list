@@ -28,7 +28,7 @@ abstract class BaseInjectingActivity : AppCompatActivity(), HasSupportFragmentIn
 
     fun replaceFragment(containerId: Int, fragment: Fragment) {
         supportFragmentManager.commit(allowStateLoss = true) {
-            replace(containerId, TweetListFragment.newInstance())
+            replace(containerId, fragment)
         }
     }
 }

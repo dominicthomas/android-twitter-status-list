@@ -46,6 +46,10 @@ class TweetListFragment : BaseInjectingFragment<MainActivity>() {
         tweetListViewModel = ViewModelProviders.of(this, viewModelFactory).get(TweetListViewModel::class.java)
         tweetListViewModel.getStatusList().observe(this, StatusObserver())
         tweetListViewModel.loadStatusList(getString(R.string.dummy_list_id))
+        swipeRefreshLayout.setOnRefreshListener {
+            tweetListViewModel.loadStatusList(getString(R.string.dummy_list_id))
+            getInjectingActivity().showLoading(false)
+        }
     }
 
     private inner class StatusObserver : Observer<Resource<List<TweetDataModel>>> {
@@ -53,14 +57,18 @@ class TweetListFragment : BaseInjectingFragment<MainActivity>() {
             when (resouce?.resourceStatus) {
                 ResourceStatus.SUCCESS -> {
                     getInjectingActivity().showLoading(false)
+                    swipeRefreshLayout.isRefreshing = false
                     tweetAdapter.setItems(resouce.data ?: emptyList())
                     tweetAdapter.notifyDataSetChanged()
                 }
                 ResourceStatus.ERROR -> {
                     getInjectingActivity().showLoading(false)
+                    swipeRefreshLayout.isRefreshing = false
                     Toast.makeText(context, resouce.message, Toast.LENGTH_SHORT).show()
                 }
                 ResourceStatus.LOADING -> {
+                    tweetAdapter.setItems(emptyList())
+                    tweetAdapter.notifyDataSetChanged()
                     getInjectingActivity().showLoading(true)
                 }
             }

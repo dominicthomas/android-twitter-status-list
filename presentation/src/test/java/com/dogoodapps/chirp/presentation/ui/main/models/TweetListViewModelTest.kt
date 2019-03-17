@@ -5,14 +5,18 @@ import androidx.lifecycle.Observer
 import com.dogoodapps.chirp.TestSchedulersRule
 import com.dogoodapps.data.model.TweetDataModel
 import com.dogoodapps.data.model.TweetMapper
+import com.dogoodapps.data.networking.requests.TweetRequest
+import com.dogoodapps.domain.entities.Tweet
 import com.dogoodapps.domain.framework.Resource
 import com.dogoodapps.domain.usecases.GetTweetsUseCase
-import org.junit.Assert.assertNotNull
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 
@@ -34,35 +38,51 @@ class TweetListViewModelTest {
     private lateinit var tweetMapper: TweetMapper
 
     @Mock
+    private lateinit var fakeTweet: Tweet
+
+    @Mock
+    private lateinit var fakeTweetDataModel: TweetDataModel
+
+    @Mock
     private lateinit var observer: Observer<Resource<List<TweetDataModel>>>
 
     private lateinit var tweetListViewModel: TweetListViewModel
 
-    //     @get:Rule
-    //    val taskExecutorRule = InstantTaskExecutorRule() ??
+    private val fakeListId = "FAKE_LIST_ID"
 
-    // Test: Resource loading - assert live data values
-    // assert(bufferoosViewModel.getBufferoos().value.status ==
-    //        ResourceState.LOADING)
-    //
+    private val fakeErrorMessage = "ERROR_MESSAGE"
 
-    // verify(observer).onChanged(
-    //        Resource(ResourceState.SUCCESS, bufferoos))
-    // assert(bufferoosViewModel.getBufferoos().value.status ==
-    //        ResourceState.SUCCESS)
-
-    // See: https://medium.com/@marco_cattaneo/unit-testing-with-mockito-on-kotlin-android-project-with-architecture-components-2059eb637912
-
-    // See; https://medium.com/@nicolas.duponchel/testing-viewmodel-in-mvvm-using-livedata-and-rxjava-b27878495220
+    private val fakeRequest = TweetRequest(fakeListId, "extended", "1", "10")
 
     @Before
     fun setup() {
         tweetListViewModel = TweetListViewModel(getTweetsUseCase, tweetMapper)
+        val buildParams = fakeRequest.buildParams()
+        `when`(getTweetsUseCase.buildRequest(fakeListId)).thenReturn(buildParams)
+        `when`(getTweetsUseCase.getStatusList(buildParams)).thenReturn(Single.just(listOf(fakeTweet)))
+        `when`(tweetMapper.convert(fakeTweet)).thenReturn(fakeTweetDataModel)
+        tweetListViewModel.getStatusList().observeForever(observer)
     }
 
     @Test
-    fun firstTest() {
-        assertNotNull(tweetListViewModel)
+    fun loadStatusList_setsResourceToLoadingState() {
+        tweetListViewModel.loadStatusList(fakeListId)
+        verify(observer).onChanged(Resource.loading(emptyList()))
     }
 
+    @Test
+    fun loadStatusList_withId_returnsAndMapsEntityToModel() {
+        tweetListViewModel.loadStatusList(fakeListId)
+        verify(observer).onChanged(Resource.loading(emptyList()))
+        verify(observer).onChanged(Resource.success(listOf(fakeTweetDataModel)))
+    }
+
+    @Test
+    fun loadStatusList_whenThereIsAnError_returnsResourceWithError() {
+        `when`(getTweetsUseCase.getStatusList(fakeRequest.buildParams()))
+            .thenReturn(Single.error(Throwable(message = fakeErrorMessage)))
+        tweetListViewModel.loadStatusList(fakeListId)
+        verify(observer).onChanged(Resource.loading(emptyList()))
+        verify(observer).onChanged(Resource.error(fakeErrorMessage, emptyList()))
+    }
 }

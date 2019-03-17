@@ -10,12 +10,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dogoodapps.chirp.R
 import com.dogoodapps.chirp.presentation.ui.framework.BaseInjectingFragment
+import com.dogoodapps.chirp.presentation.ui.framework.ImageLoader
 import com.dogoodapps.chirp.presentation.ui.main.adapters.TweetListAdapter
 import com.dogoodapps.chirp.presentation.ui.main.models.TweetListViewModel
 import com.dogoodapps.data.model.TweetDataModel
 import com.dogoodapps.domain.framework.Resource
 import com.dogoodapps.domain.framework.ResourceStatus
 import kotlinx.android.synthetic.main.fragment_main.*
+import javax.inject.Inject
 
 
 class TweetListFragment : BaseInjectingFragment<MainActivity>() {
@@ -25,6 +27,9 @@ class TweetListFragment : BaseInjectingFragment<MainActivity>() {
             return TweetListFragment()
         }
     }
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     private lateinit var tweetListViewModel: TweetListViewModel
 
@@ -36,9 +41,9 @@ class TweetListFragment : BaseInjectingFragment<MainActivity>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tweetAdapter = TweetListAdapter {
+        tweetAdapter = TweetListAdapter({
             Toast.makeText(context, it.id.toString(), Toast.LENGTH_SHORT).show()
-        }
+        }, imageLoader)
         tweetListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = tweetAdapter

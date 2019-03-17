@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Chirp</string>
     <string name="dummy_list_id">871746761387323394</string>
+    <string name="tweet_image_content_description">Tweet user image</string>
 </resources>

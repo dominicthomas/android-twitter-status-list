@@ -7,37 +7,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
-        android:minHeight="200dp">
+        app:cardCornerRadius="@dimen/tweet_item_card_radius"
+        app:cardElevation="@dimen/tweet_item_card_elevation"
+        android:minHeight="@dimen/tweet_card_item_min_height">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:padding="@dimen/tweet_layout_padding"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content">
 
+        <ImageView
+                android:id="@+id/tweetImage"
+                android:layout_width="@dimen/tweet_image_width_height"
+                android:layout_height="@dimen/tweet_image_width_height"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:src="@drawable/ic_launcher_background"
+                android:contentDescription="@string/tweet_image_content_description"/>
+
         <TextView
-                android:id="@+id/statusDate"
-                android:layout_width="match_parent"
-                android:textSize="18sp"
+                android:id="@+id/tweetDate"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/tweet_date_text_size"
                 android:layout_height="wrap_content"
-                tools:text="14/09/1984 11:00am"
-                android:textAlignment="viewEnd"
-                android:layout_marginTop="8dp"
+                android:height="@dimen/tweet_date_view_height"
+                android:gravity="center"
+                tools:text="14 Sep 1984 - 11:00am"
+                android:textAlignment="center"
+                android:layout_marginStart="@dimen/app_margin_8dp"
+                app:layout_constraintLeft_toRightOf="@+id/tweetImage"
                 app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-                android:id="@+id/statusText"
-                app:layout_constraintTop_toBottomOf="@id/statusDate"
-                android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
-                android:textSize="22sp"
+                android:id="@+id/tweetText"
+                app:layout_constraintTop_toBottomOf="@id/tweetImage"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/app_margin_8dp"
+                android:textSize="@dimen/tweet_text_size"
                 android:autoLink="web"
-                android:textColorLink="#4F91BF"
+                android:textColorLink="@color/tweet_link_color"
                 android:layout_height="wrap_content"
                 tools:text="Lorem ipsum "/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.cardview.widget.CardView>

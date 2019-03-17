@@ -4,9 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dogoodapps.chirp.R
+import com.dogoodapps.chirp.presentation.ui.framework.ImageLoader
 import com.dogoodapps.data.model.TweetDataModel
 
-class TweetListAdapter(val onClick: (TweetDataModel) -> Unit) : RecyclerView.Adapter<TweetItemViewHolder>() {
+class TweetListAdapter(
+    private val onClick: (TweetDataModel) -> Unit,
+    private val imageLoader: ImageLoader
+) : RecyclerView.Adapter<TweetItemViewHolder>() {
 
     private var items: List<TweetDataModel> = emptyList()
 
@@ -21,7 +25,7 @@ class TweetListAdapter(val onClick: (TweetDataModel) -> Unit) : RecyclerView.Ada
     )
 
     override fun onBindViewHolder(holder: TweetItemViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], imageLoader)
         holder.view.setOnClickListener { onClick(items[position]) }
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tweet_item_card_radius">5dp</dimen>
+    <dimen name="tweet_item_card_elevation">2dp</dimen>
+    <dimen name="tweet_card_item_min_height">200dp</dimen>
+    <dimen name="tweet_image_width_height">50dp</dimen>
+    <dimen name="tweet_layout_padding">16dp</dimen>
+    <dimen name="tweet_date_text_size">18sp</dimen>
+    <dimen name="tweet_date_view_height">50dp</dimen>
+    <dimen name="app_margin_8dp">8dp</dimen>
+    <dimen name="tweet_text_size">22sp</dimen>
+    <dimen name="progress_bar_width_height">50dp</dimen>
+</resources>

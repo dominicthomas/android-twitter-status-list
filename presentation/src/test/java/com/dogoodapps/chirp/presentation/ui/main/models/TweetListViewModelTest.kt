@@ -80,7 +80,7 @@ class TweetListViewModelTest {
     @Test
     fun loadStatusList_whenThereIsAnError_returnsResourceWithError() {
         `when`(getTweetsUseCase.getStatusList(fakeRequest.buildParams()))
-            .thenReturn(Single.error(Throwable(message = fakeErrorMessage)))
+            .thenReturn(Single.error(Throwable(fakeErrorMessage)))
         tweetListViewModel.loadStatusList(fakeListId)
         verify(observer).onChanged(Resource.loading(emptyList()))
         verify(observer).onChanged(Resource.error(fakeErrorMessage, emptyList()))

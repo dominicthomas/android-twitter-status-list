@@ -3,4 +3,5 @@
     <color name="colorPrimary">#EB4746</color>
     <color name="colorPrimaryDark">#2F4858</color>
     <color name="colorAccent">#67528E</color>
+    <color name="tweet_link_color">#4F91BF</color>
 </resources>

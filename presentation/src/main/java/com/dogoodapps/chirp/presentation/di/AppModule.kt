@@ -2,6 +2,7 @@ package com.dogoodapps.chirp.presentation.di
 
 import android.content.Context
 import com.dogoodapps.chirp.presentation.ChirpApplication
+import com.dogoodapps.chirp.presentation.ui.di.ImageLoaderModule
 import com.dogoodapps.chirp.presentation.ui.di.ViewModelModule
 import com.dogoodapps.chirp.presentation.ui.main.di.FragmentBuilder
 import dagger.Module
@@ -15,6 +16,7 @@ import javax.inject.Singleton
         ActivityBuilder::class,
         FragmentBuilder::class,
         ViewModelModule::class,
+        ImageLoaderModule::class,
         AndroidInjectionModule::class,
         AndroidSupportInjectionModule::class
     ]

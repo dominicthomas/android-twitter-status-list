@@ -7,7 +7,8 @@ import dagger.Module
         AuthModule::class,
         NetworkingModule::class,
         RepositoryModule::class,
-        UseCaseModule::class
+        UseCaseModule::class,
+        UtilsModule::class
     ]
 )
 abstract class DataModule

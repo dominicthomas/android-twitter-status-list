@@ -10,6 +10,7 @@ class HtmlParserImpl @Inject constructor() : HtmlParser {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY).toString()
         } else {
+            @Suppress("DEPRECATION") // Only used pre sdk 24
             Html.fromHtml(htmlString).toString()
         }
     }

@@ -9,7 +9,7 @@ import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
 
-class ChirpApplication : Application(), HasActivityInjector {
+open class ChirpApplication : Application(), HasActivityInjector {
 
     @Inject
     lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>

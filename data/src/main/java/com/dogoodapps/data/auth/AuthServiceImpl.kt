@@ -7,7 +7,7 @@ class AuthServiceImpl @Inject constructor() : AuthService {
 
     /**
      * This has been set manually for the sake of the demo but would probably be retrieved from an authentication
-     * service and stored securely in memory.. this would never be stored in plain text
+     * service and stored securely in memory or keystore.. this would never be stored in plain text
      */
     private var accessToken: String? =
         "Bearer AAAAAAAAAAAAAAAAAAAAAF7w0wAAAAAAb6kdTQSU%2F5EmGAMD917iN" +

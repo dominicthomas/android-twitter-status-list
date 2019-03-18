@@ -12,7 +12,6 @@ class PackageNameTest {
 
     @Test
     fun useAppContext() {
-        // Context of the app under test.
         val appContext = ApplicationProvider.getApplicationContext<Context>()
         assertEquals("com.dogoodapps.chirp", appContext.packageName)
     }

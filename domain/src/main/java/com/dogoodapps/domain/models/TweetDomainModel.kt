@@ -1,6 +1,6 @@
-package com.dogoodapps.data.model
+package com.dogoodapps.domain.models
 
-data class TweetDataModel(
+data class TweetDomainModel(
     val id: Long,
     val created_at: String,
     val full_text: String,

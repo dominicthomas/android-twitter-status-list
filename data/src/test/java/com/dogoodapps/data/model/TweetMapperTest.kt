@@ -4,6 +4,7 @@ import com.dogoodapps.data.framework.HtmlParser
 import com.dogoodapps.data.framework.TweetMapperUtils
 import com.dogoodapps.domain.entities.Tweet
 import com.dogoodapps.domain.entities.User
+import com.dogoodapps.domain.models.TweetDomainModel
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -34,7 +35,8 @@ class TweetMapperTest {
 
     private val fakeImageUrl = "IMAGE_URL"
 
-    private val fakeTweetDataModel = TweetDataModel(fakeId, createAtResult, fakeFullText, fakeImageUrl)
+    private val fakeTweetDataModel =
+        TweetDomainModel(fakeId, createAtResult, fakeFullText, fakeImageUrl)
 
     private lateinit var tweetMapper: TweetMapper
 

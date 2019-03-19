@@ -3,7 +3,7 @@ package com.dogoodapps.statuslist.presentation.ui.main.models
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.dogoodapps.statuslist.TestSchedulersRule
-import com.dogoodapps.data.model.TweetDataModel
+import com.dogoodapps.domain.models.TweetDomainModel
 import com.dogoodapps.data.model.TweetMapper
 import com.dogoodapps.data.networking.requests.TweetRequest
 import com.dogoodapps.domain.entities.Tweet
@@ -35,16 +35,10 @@ class TweetListViewModelTest {
     private lateinit var getTweetsUseCase: GetTweetsUseCase
 
     @Mock
-    private lateinit var tweetMapper: TweetMapper
+    private lateinit var fakeTweetDomainModel: TweetDomainModel
 
     @Mock
-    private lateinit var fakeTweet: Tweet
-
-    @Mock
-    private lateinit var fakeTweetDataModel: TweetDataModel
-
-    @Mock
-    private lateinit var observer: Observer<Resource<List<TweetDataModel>>>
+    private lateinit var observer: Observer<Resource<List<TweetDomainModel>>>
 
     private lateinit var tweetListViewModel: TweetListViewModel
 
@@ -56,11 +50,10 @@ class TweetListViewModelTest {
 
     @Before
     fun setup() {
-        tweetListViewModel = TweetListViewModel(getTweetsUseCase, tweetMapper)
+        tweetListViewModel = TweetListViewModel(getTweetsUseCase)
         val buildParams = fakeRequest.buildParams()
         `when`(getTweetsUseCase.buildRequest(fakeListId)).thenReturn(buildParams)
-        `when`(getTweetsUseCase.getStatusList(buildParams)).thenReturn(Single.just(listOf(fakeTweet)))
-        `when`(tweetMapper.convert(fakeTweet)).thenReturn(fakeTweetDataModel)
+        `when`(getTweetsUseCase.getStatusList(buildParams)).thenReturn(Single.just(listOf(fakeTweetDomainModel)))
         tweetListViewModel.getStatusList().observeForever(observer)
     }
 
@@ -74,7 +67,7 @@ class TweetListViewModelTest {
     fun loadStatusList_withId_returnsAndMapsEntityToModel() {
         tweetListViewModel.loadStatusList(fakeListId)
         verify(observer).onChanged(Resource.loading(emptyList()))
-        verify(observer).onChanged(Resource.success(listOf(fakeTweetDataModel)))
+        verify(observer).onChanged(Resource.success(listOf(fakeTweetDomainModel)))
     }
 
     @Test

@@ -13,7 +13,7 @@ import com.dogoodapps.statuslist.presentation.ui.framework.BaseInjectingFragment
 import com.dogoodapps.statuslist.presentation.ui.framework.ImageLoader
 import com.dogoodapps.statuslist.presentation.ui.main.adapters.TweetListAdapter
 import com.dogoodapps.statuslist.presentation.ui.main.models.TweetListViewModel
-import com.dogoodapps.data.model.TweetDataModel
+import com.dogoodapps.domain.models.TweetDomainModel
 import com.dogoodapps.domain.framework.Resource
 import com.dogoodapps.domain.framework.ResourceStatus
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -57,8 +57,8 @@ class TweetListFragment : BaseInjectingFragment<MainActivity>() {
         }
     }
 
-    private inner class StatusObserver : Observer<Resource<List<TweetDataModel>>> {
-        override fun onChanged(resouce: Resource<List<TweetDataModel>>?) {
+    private inner class StatusObserver : Observer<Resource<List<TweetDomainModel>>> {
+        override fun onChanged(resouce: Resource<List<TweetDomainModel>>?) {
             when (resouce?.resourceStatus) {
                 ResourceStatus.SUCCESS -> {
                     getInjectingActivity().showLoading(false)

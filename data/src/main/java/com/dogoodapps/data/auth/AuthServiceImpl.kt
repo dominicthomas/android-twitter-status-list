@@ -1,17 +1,15 @@
 package com.dogoodapps.data.auth
 
+import com.dogoodapps.data.BuildConfig
 import com.dogoodapps.domain.auth.AuthService
 import javax.inject.Inject
 
 class AuthServiceImpl @Inject constructor() : AuthService {
 
     /**
-     * This has been set manually for the sake of the demo but would probably be retrieved from an authentication
-     * service and stored securely in memory or keystore.. this would never be stored in plain text
+     * This has been set manually from build config for the sake of the demo..
      */
-    private var accessToken: String? =
-        "Bearer AAAAAAAAAAAAAAAAAAAAAF7w0wAAAAAAb6kdTQSU%2F5EmGAMD917iN" +
-                "7rZuVE%3D9ssQYqmHSgDTUgLDOW3k155qYVOxrGUaDSeOrW3IqvHeSoRYiu"
+    private var accessToken: String? = BuildConfig.AUTH_TOKEN
 
     override fun isUserLoggedIn(): Boolean {
         return !accessToken.isNullOrEmpty()

@@ -11,7 +11,18 @@ android {
         testInstrumentationRunner config.test_runner
     }
 
+    /**
+     * For the demo, we need an auth.properties file with a twitter bearer token added
+     */
+    def auth = new Properties()
+    file("auth.properties").withInputStream {
+        stream -> auth.load(stream)
+    }
+
     buildTypes {
+        debug {
+            buildConfigField "String", "AUTH_TOKEN", auth.AUTH_TOKEN
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

@@ -6,8 +6,13 @@ Requires an `auth.properties` file with an `AUTH_TOKEN` property to build and ru
 
 #### Libraries Used
 [Retrofit2](https://github.com/square/retrofit)
+
 [Dagger2](https://github.com/google/dagger)
+
 [Picasso](https://github.com/square/picasso)
+
 [RxJava2](https://github.com/ReactiveX/RxJava)
+
 [Mockito](https://github.com/mockito/mockito)
+
 [Espresso](https://developer.android.com/training/testing/espresso)
